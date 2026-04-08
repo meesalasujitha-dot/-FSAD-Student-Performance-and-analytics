@@ -1,0 +1,28 @@
+.card{
+  background: rgba(255,255,255,0.78);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.cardHead{
+  display:flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px 8px 16px;
+}
+.cardTitle{ font-weight: 900; font-size: 16px; }
+.cardSub{ font-size: 13px; color: var(--muted); margin-top: 3px; }
+.cardBody{ padding: 12px 16px 16px 16px; }
+.cardRight{ display:flex; align-items:center; gap: 10px; }
+
+.statCard .cardBody{ padding-top: 8px; }
+.statValue{ font-size: 30px; font-weight: 950; letter-spacing: -0.6px; }
+.statHint{ color: var(--muted); font-size: 13px; margin-top: 4px; }
+.statIcon{
+  width: 42px; height: 42px; border-radius: 16px;
+  display:grid; place-items:center;
+  background: rgba(47,111,237,0.10);
+  border: 1px solid rgba(47,111,237,0.16);
+}
