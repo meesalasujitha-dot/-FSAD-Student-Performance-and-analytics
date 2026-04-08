@@ -1,7 +1,7 @@
 # We use a multi-stage build to keep the final image very small.
 
 # Stage 1: Build the Java application using Maven
-FROM maven:3.8.5-openjdk-8-slim AS build
+FROM maven:3.8.6-eclipse-temurin-8 AS build
 WORKDIR /app
 
 # Copy the pom.xml and download dependencies to cache them
@@ -13,7 +13,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create the minimal runtime container
-FROM openjdk:8-jre-slim
+FROM eclipse-temurin:8-jre
 WORKDIR /app
 
 # Copy the assembled JAR from the build container
