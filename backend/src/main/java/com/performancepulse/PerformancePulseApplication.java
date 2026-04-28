@@ -17,12 +17,16 @@ public class PerformancePulseApplication {
     }
 
     @Bean
-    public CommandLineRunner initData(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public CommandLineRunner initData(UserRepository userRepository, PasswordEncoder passwordEncoder, com.performancepulse.controllers.StudentController studentController) {
         return args -> {
             if (userRepository.count() == 0) {
                 userRepository.save(new User(null, "Admin", "admin@example.com", passwordEncoder.encode("admin123"), "ROLE_ADMIN"));
                 userRepository.save(new User(null, "Student", "student@example.com", passwordEncoder.encode("password123"), "ROLE_STUDENT"));
                 System.out.println("Inserted default users.");
+            }
+            if (studentController.getAllStudents(null).isEmpty()) {
+                studentController.seedDatabase();
+                System.out.println("Inserted default students and courses.");
             }
         };
     }

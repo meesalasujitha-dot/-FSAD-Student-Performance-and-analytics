@@ -3,7 +3,11 @@ import { computeStudentSummary, generateReportRows } from '../utils/data.js'
 
 const AppCtx = createContext(null)
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api'
+let base = import.meta.env.VITE_API_URL || 'http://localhost:8080/api'
+if (base && !base.endsWith('/api') && !base.includes('localhost')) {
+  base = base + '/api'
+}
+const API_BASE_URL = base
 
 const initial = (() => {
   // Check if user is legally signed in via localStorage

@@ -6,7 +6,7 @@ import '../styles/login.css'
 export default function Login() {
   const { login } = useApp()
   const nav = useNavigate()
-  const [email, setEmail] = useState('student@example.com')
+  const [email, setEmail] = useState('aarav@example.com')
   const [password, setPassword] = useState('password123')
   const [role, setRole] = useState('student')
   const [isLoading, setIsLoading] = useState(false)

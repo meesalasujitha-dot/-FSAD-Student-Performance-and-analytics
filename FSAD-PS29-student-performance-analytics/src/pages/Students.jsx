@@ -22,7 +22,7 @@ export default function Students() {
   const [open, setOpen] = useState(false)
   const [draft, setDraft] = useState(null)
 
-  const canEdit = session.role === 'admin'
+  const canEdit = session?.role === 'admin';
 
   const filtered = useMemo(() => {
     let rows = [...data.students]
@@ -163,7 +163,7 @@ export default function Students() {
       >
         {draft && (
           <div className="formGrid">
-            <Input label="Student ID" value={draft.studentId} disabled />
+            <Input label="Student ID" value={draft.studentId} onChange={(e)=>setDraft({...draft, studentId:e.target.value})} disabled={!canEdit} />
             <Input label="Name" value={draft.name} onChange={(e)=>setDraft({...draft, name:e.target.value})} disabled={!canEdit} />
             <div className="field">
               <label>Department</label>

@@ -1,0 +1,55 @@
+databases:
+  - name: performancepulse-db
+    databaseName: performance_pulse
+    user: postgres
+    plan: free
+
+services:
+  - type: web
+    name: performancepulse-backend
+    env: docker
+    rootDir: backend
+    plan: free
+    region: oregon
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DB_HOST
+        fromDatabase:
+          name: performancepulse-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: performancepulse-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: performancepulse-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: performancepulse-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: performancepulse-db
+          property: password
+
+  - type: web
+    name: performancepulse-frontend
+    env: static
+    rootDir: FSAD-PS29-student-performance-analytics
+    buildCommand: npm install && npm run build
+    publishPath: dist
+    plan: free
+    region: oregon
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: performancepulse-backend
+          envVarKey: RENDER_EXTERNAL_URL

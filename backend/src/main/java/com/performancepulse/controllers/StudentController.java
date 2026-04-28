@@ -2,8 +2,10 @@ package com.performancepulse.controllers;
 
 import com.performancepulse.models.Student;
 import com.performancepulse.repositories.StudentRepository;
+import com.performancepulse.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +21,13 @@ public class StudentController {
     private final com.performancepulse.repositories.CourseRepository courseRepository;
 
     @GetMapping
-    public List<Student> getAllStudents() {
+    public List<Student> getAllStudents(Authentication authentication) {
+        if (authentication != null && authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            return studentRepository.findAll();
+        } else if (authentication != null) {
+            String userName = ((UserDetailsImpl) authentication.getPrincipal()).getName();
+            return studentRepository.findByNameContainingIgnoreCase(userName);
+        }
         return studentRepository.findAll();
     }
 

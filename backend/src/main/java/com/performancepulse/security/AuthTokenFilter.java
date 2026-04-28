@@ -30,12 +30,15 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
                 String role = jwtUtils.getRoleFromJwtToken(jwt);
                 if (role == null) role = "ROLE_STUDENT";
+                
+                String actualName = jwtUtils.getNameFromJwtToken(jwt);
+                if (actualName == null) actualName = "Demo User";
 
                 // Bypass database check to match the AuthController bypass
                 java.util.List<org.springframework.security.core.authority.SimpleGrantedAuthority> authorities = 
                         java.util.Arrays.asList(new org.springframework.security.core.authority.SimpleGrantedAuthority(role));
                 
-                UserDetails userDetails = new UserDetailsImpl(1L, "Demo User", username, "", role, authorities);
+                UserDetails userDetails = new UserDetailsImpl(1L, actualName, username, "", role, authorities);
 
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
