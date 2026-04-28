@@ -40,7 +40,7 @@ services:
     env: static
     rootDir: FSAD-PS29-student-performance-analytics
     buildCommand: npm install && npm run build
-    publishPath: dist
+    staticPublishPath: dist
     region: oregon
     routes:
       - type: rewrite
