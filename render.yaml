@@ -1,9 +1,3 @@
-databases:
-  - name: performancepulse-db
-    databaseName: performance_pulse
-    user: pulse_user
-    plan: free
-
 services:
   - type: web
     name: performancepulse-backend
@@ -15,25 +9,15 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
       - key: DB_HOST
-        fromDatabase:
-          name: performancepulse-db
-          property: host
+        sync: false
       - key: DB_PORT
-        fromDatabase:
-          name: performancepulse-db
-          property: port
+        sync: false
       - key: DB_NAME
-        fromDatabase:
-          name: performancepulse-db
-          property: database
+        sync: false
       - key: DB_USERNAME
-        fromDatabase:
-          name: performancepulse-db
-          property: user
+        sync: false
       - key: DB_PASSWORD
-        fromDatabase:
-          name: performancepulse-db
-          property: password
+        sync: false
 
   - type: web
     name: performancepulse-frontend
