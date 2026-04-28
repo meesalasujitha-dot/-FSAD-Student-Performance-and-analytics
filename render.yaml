@@ -1,7 +1,7 @@
 databases:
   - name: performancepulse-db
     databaseName: performance_pulse
-    user: postgres
+    user: pulse_user
     plan: free
 
 services:
@@ -41,7 +41,6 @@ services:
     rootDir: FSAD-PS29-student-performance-analytics
     buildCommand: npm install && npm run build
     publishPath: dist
-    plan: free
     region: oregon
     routes:
       - type: rewrite
